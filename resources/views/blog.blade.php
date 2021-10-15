@@ -1,16 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hilmi Blog | Halaman {{ $title }}</title>
-    <link rel="stylesheet" href="assets/css/main.css">
-</head>
-
-<body>
-    <h1>Halaman {{ $title }}</h1>
-</body>
-
-</html>
+@section('content')
+<div class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <h1>Halaman {{ $title }}</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        @foreach ($posts as $post)
+            <div class="col-md-12 mb-3">
+                <h1><a href="/blog/{{ $post['slug'] }}" class="text-decoration-none">{{ $post['title'] }}</a></h1>
+                <h5>By : {{ $post['author'] }}</h5>
+                <p>
+                    {{ $post['body'] }}
+                </p>
+            </div>
+        @endforeach
+    </div>
+</div>
+@endsection
