@@ -15,11 +15,11 @@ class PostController extends Controller
         ]);
     }
 
-    public function post($slug)
+    public function post(Post $post)
     {
         return view('single_blog', [
             'title' => 'Blog',
-            'post' => Post::find($slug)
+            'post' => $post
         ]);
     }
 }
