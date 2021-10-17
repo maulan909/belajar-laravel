@@ -17,13 +17,15 @@ use App\Models\User;
 
 Route::get('/', function () {
     return view('home', [
-        'title' => 'Home'
+        'title' => 'Home',
+        'active' => 'home'
     ]);
 });
 
 Route::get('about', function () {
     return view('about', [
         'title' => 'About',
+        'active' => 'about',
         'name' => 'Hilmi Maulana Mukhlis',
         'job' => 'Programmer'
     ]);
@@ -34,18 +36,21 @@ Route::get('blog/{post:slug}', [PostController::class, 'post']);
 Route::get('categories', function () {
     return view('categories', [
         'title' => 'Categories',
+        'active' => 'categories',
         'categories' => Category::all()
     ]);
 });
 Route::get('category/{category:slug}', function (Category $category) {
     return view('blog', [
         'title' => "Post in : $category->name",
+        'active' => 'blog',
         'posts' => $category->posts->load(['author', 'category'])
     ]);
 });
 Route::get('author/{author:username}', function (User $author) {
     return view('blog', [
         'title' => "Post by : $author->name",
+        'active' => 'blog',
         'posts' => $author->posts->load(['author', 'category'])
     ]);
 });

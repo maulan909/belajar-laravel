@@ -27,7 +27,11 @@ class PostFactory extends Factory
             'user_id' => mt_rand(1, 5),
             'slug' => $this->faker->unique()->slug(mt_rand(3, 6)),
             'excerpt' => $this->faker->paragraph(3),
-            'body' => $this->faker->paragraph(10)
+            // 'body' => '<p>' . implode('</p><p>', $this->faker->paragraphs(mt_rand(8, 10))) . '</p>' //gabung antar array dengan glue tag paragraf
+            'body' => collect($this->faker->paragraphs(mt_rand(8, 10)))->map(function ($p) {
+                return "<p>$p</p>";
+            })->implode('') // menggunakan collection dan method collection map untuk menyusun array baru, dan di implode
+
         ];
     }
 }
