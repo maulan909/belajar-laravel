@@ -1,1 +1,1 @@
-alert("Selamat datang di Hilmi Blog");
+// alert("Selamat datang di Hilmi Blog");

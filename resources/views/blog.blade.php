@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row mt-4">
         <div class="col">
-            <h1>Halaman {{ $title }}</h1>
+            <h1>{{ $title }}</h1>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -12,7 +12,7 @@
         <div class="col-md-12 mb-3 border-bottom pb-3">
             <article>
                 <h1><a href="/blog/{{ $post->slug }}" class="text-decoration-none">{{ $post->title }}</a></h1>
-                <p>By : <a href="author/{{ $post->author->username }}" class="text-decoration-none">{{ $post->author->name }}</a> in <a href="/category/{{ $post->category->slug }}" class="text-decoration-none">{{ $post->category->name }}</a></p>
+                <p>By : <a href="/author/{{ $post->author->username }}" class="text-decoration-none">{{ $post->author->name }}</a> in <a href="/category/{{ $post->category->slug }}" class="text-decoration-none">{{ $post->category->name }}</a></p>
                 <p>
                     {{ $post->excerpt }}
                 </p>
