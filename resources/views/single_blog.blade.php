@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-12 mb-4">
             <h1>{{ $post->title }}</h1>
-            <h5>By : {{ $post->author }}</h5>
+            <p>By : Hilmi Maulana in <a href="/category/{{ $post->category->slug }}">{{ $post->category->name }}</a></p>
             <!-- untuk disable escape string -->
             {!! $post->body !!}
         </div>
