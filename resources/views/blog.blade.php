@@ -59,5 +59,10 @@
         <h3 class="text-center">Post Not Found.</h3>
         @endif
     </div>
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+            {{ $posts->links() }}
+        </div>
+    </div>
 </div>
 @endsection
