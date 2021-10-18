@@ -14,7 +14,7 @@ class PostController extends Controller
             'active' => 'blog',
             // 'posts' => Post::all()
             // 'posts' => Post::latest()->filter()->get() // tanpa checking request
-            'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->get() // dengan checking request
+            'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(4) // dengan checking request
         ]);
     }
 
