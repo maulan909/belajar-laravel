@@ -4,21 +4,42 @@
 <div class="auth-logo">
     <a href="/"><img src="assets/vendors/mazer/images/logo/logo.svg" alt="Logo"></a>
 </div>
+@if (session('success'))
+    <div class="alert alert-success" role="alert">
+        {{ session('success') }}
+    </div>
+@endif
 <h1 class="auth-title fs-1">Log in.</h1>
 <p class="auth-subtitle mb-5 fs-5">Log in with your data that you entered during registration.</p>
 
-<form action="index.html" method="post">
-    <div class="form-group position-relative has-icon-left mb-4">
-        <input type="text" class="form-control form-control-xl" placeholder="Username or Email" name="usernameOrEmail">
-        <div class="form-control-icon">
-            <i class="bi bi-person"></i>
+<form action="/login" method="post">
+    <div class="input-group input-group-lg mb-3">
+        <span class="input-group-text fs-3 py-1 px-2" id="username"><div class="form-control-icon">
+            <i class="bi bi-person-bounding-box"></i>
+        </div></span>
+        <input type="text" class="form-control @error('username')
+            is-invalid
+        @enderror" placeholder="Username"
+            aria-label="username" aria-describedby="username" name="username" value="{{ old('username') }}">
+        @error('username')
+        <div class="invalid-feedback">
+            {{ $message }}
         </div>
+        @enderror
     </div>
-    <div class="form-group position-relative has-icon-left mb-4">
-        <input type="password" class="form-control form-control-xl" placeholder="Password" name="password">
-        <div class="form-control-icon">
+    <div class="input-group input-group-lg mb-3">
+        <span class="input-group-text fs-3 py-1 px-2" id="password"><div class="form-control-icon">
             <i class="bi bi-shield-lock"></i>
+        </div></span>
+        <input type="password" class="form-control @error('password')
+            is-invalid
+        @enderror" placeholder="Password"
+            aria-label="password" aria-describedby="password" name="password">
+        @error('password')
+        <div class="invalid-feedback">
+            {{ $message }}
         </div>
+        @enderror
     </div>
     <button class="btn btn-primary btn-block btn-lg shadow-lg mt-3" type="submit">Log in</button>
 </form>
