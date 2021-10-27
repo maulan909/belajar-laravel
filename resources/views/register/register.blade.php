@@ -16,7 +16,7 @@
         <input type="text" class="form-control @error('name')
             is-invalid
         @enderror" placeholder="Name"
-            aria-label="Name" aria-describedby="name" name="name" value="{{ old('name') }}">
+            aria-label="Name" aria-describedby="name" name="name" value="{{ old('name') }}" required>
         @error('name')
         <div class="invalid-feedback">
             {{ $message }}
@@ -30,7 +30,7 @@
         <input type="text" class="form-control @error('username')
             is-invalid
         @enderror" placeholder="Username"
-            aria-label="username" aria-describedby="username" name="username" value="{{ old('username') }}">
+            aria-label="username" aria-describedby="username" name="username" value="{{ old('username') }}" required>
         @error('username')
         <div class="invalid-feedback">
             {{ $message }}
@@ -44,7 +44,7 @@
         <input type="email" class="form-control @error('email')
             is-invalid
         @enderror" placeholder="Email"
-            aria-label="email" aria-describedby="email" name="email" value="{{ old('email') }}">
+            aria-label="email" aria-describedby="email" name="email" value="{{ old('email') }}" required>
         @error('email')
         <div class="invalid-feedback">
             {{ $message }}
@@ -58,7 +58,7 @@
         <input type="password" class="form-control @error('password')
             is-invalid
         @enderror" placeholder="Password"
-            aria-label="password" aria-describedby="password" name="password">
+            aria-label="password" aria-describedby="password" name="password" required>
         @error('password')
         <div class="invalid-feedback">
             {{ $message }}
@@ -72,7 +72,7 @@
         <input type="password" class="form-control @error('password_confirmation')
             is-invalid
         @enderror" placeholder="Confirm Password"
-            aria-label="password_confirmation" aria-describedby="password_confirmation" name="password_confirmation">
+            aria-label="password_confirmation" aria-describedby="password_confirmation" name="password_confirmation" required>
         @error('password_confirmation')
         <div class="invalid-feedback">
             {{ $message }}

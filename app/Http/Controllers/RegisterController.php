@@ -32,6 +32,6 @@ class RegisterController extends Controller
         // $request->session()->flash('success', 'Registration successful! Please login.'); // jika ingin menggunakan session terpisah
         // return redirect('/login'); //jika ingin menggunakan session terpisah
 
-        return redirect('login')->with('success', 'Registration successful! Please login.');
+        return redirect('login')->with('authAlert', 'Registration successful! Please login.');
     }
 }

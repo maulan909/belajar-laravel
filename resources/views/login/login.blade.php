@@ -4,24 +4,25 @@
 <div class="auth-logo">
     <a href="/"><img src="assets/vendors/mazer/images/logo/logo.svg" alt="Logo"></a>
 </div>
-@if (session('success'))
-    <div class="alert alert-success" role="alert">
-        {{ session('success') }}
+@if (session('authAlert'))
+    <div class="alert alert-info" role="alert">
+        {{ session('authAlert') }}
     </div>
 @endif
 <h1 class="auth-title fs-1">Log in.</h1>
 <p class="auth-subtitle mb-5 fs-5">Log in with your data that you entered during registration.</p>
 
 <form action="/login" method="post">
+    @csrf
     <div class="input-group input-group-lg mb-3">
-        <span class="input-group-text fs-3 py-1 px-2" id="username"><div class="form-control-icon">
+        <span class="input-group-text fs-3 py-1 px-2" id="email"><div class="form-control-icon">
             <i class="bi bi-person-bounding-box"></i>
         </div></span>
-        <input type="text" class="form-control @error('username')
+        <input type="email" class="form-control @error('email')
             is-invalid
-        @enderror" placeholder="Username"
-            aria-label="username" aria-describedby="username" name="username" value="{{ old('username') }}">
-        @error('username')
+        @enderror" placeholder="Email"
+            aria-label="email" aria-describedby="email" name="email" value="{{ old('email') }}" required autofocus>
+        @error('email')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
@@ -34,7 +35,7 @@
         <input type="password" class="form-control @error('password')
             is-invalid
         @enderror" placeholder="Password"
-            aria-label="password" aria-describedby="password" name="password">
+            aria-label="password" aria-describedby="password" name="password" required>
         @error('password')
         <div class="invalid-feedback">
             {{ $message }}

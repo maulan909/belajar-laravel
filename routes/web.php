@@ -3,6 +3,8 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminPostController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -57,6 +59,11 @@ Route::get('author/{author:username}', function (User $author) {
     ]);
 });
 
-Route::get('/login', [LoginController::class, 'index']);
-Route::get('/register', [RegisterController::class, 'index']);
-Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
+
+Route::get('dashboard', [AdminController::class, 'index'])->middleware('auth');
+Route::resource('dashboard/post', AdminPostController::class)->middleware('auth');

@@ -20,12 +20,27 @@
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a href="/login" class="nav-link {{ ($active == 'login')? 'active':'' }}"><i class="bi bi-box-arrow-in-right"></i> Login</a>
-          </li>
-          <li class="nav-item">
-            <a href="/register" class="nav-link {{ ($active == 'register')? 'active':'' }}"><i class="bi bi-person-plus"></i> Register</a>
-          </li>
+          @auth
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link {{ ($active == 'logout')? 'active':'' }} dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ auth()->user()->name }}</a>
+              <ul class="dropdown-menu dropdown-menu-end shadow " aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-grid"></i> Dashboard</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <form action="/logout" method="post">
+                    @csrf
+                    <button class="dropdown-item" type="submit"><i class="bi bi-box-arrow-left"></i> Logout</button></li>
+                  </form>
+              </ul>
+            </li>
+          @else
+            <li class="nav-item">
+              <a href="/login" class="nav-link {{ ($active == 'login')? 'active':'' }}"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+            </li>
+            <li class="nav-item">
+              <a href="/register" class="nav-link {{ ($active == 'register')? 'active':'' }}"><i class="bi bi-person-plus"></i> Register</a>
+            </li>
+          @endauth
         </ul>
       </div>
     </div>
