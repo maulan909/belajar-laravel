@@ -66,4 +66,5 @@ Route::get('/register', [RegisterController::class, 'index'])->middleware('guest
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
 Route::get('dashboard', [AdminController::class, 'index'])->middleware('auth');
+Route::get('dashboard/post/checkslug', [AdminPostController::class, 'checkSlug'])->middleware('auth');
 Route::resource('dashboard/post', AdminPostController::class)->middleware('auth');

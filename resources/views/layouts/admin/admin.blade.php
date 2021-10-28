@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/assets/vendors/mazer/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/trix.css">
+    <script type="text/javascript" src="/assets/js/trix.js"></script>
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="shortcut icon" href="/assets/vendors/mazer/images/favicon.svg" type="image/x-icon">
 </head>
@@ -32,12 +34,15 @@
                 </header> --}}
                     
                 <div class="page-heading">
+                    @if (session('admMessage'))
+                        <div class="alert alert-success">
+                            {{ session('admMessage') }}
+                        </div>
+                    @endif
                     <h3>{{ $title }}</h3>
                 </div>
                 <div class="page-content">
-                    <section class="row">
-                        @yield('adminContent')
-                    </section>
+                    @yield('adminContent')
                 </div>
                 
             </div>
