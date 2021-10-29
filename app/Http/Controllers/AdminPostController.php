@@ -81,7 +81,11 @@ class AdminPostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('admin.editPost', [
+            'title' => 'Edit Post',
+            'post' => $post,
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -93,7 +97,21 @@ class AdminPostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $rules = [
+            'title' => 'required|max:255',
+            'category_id' => 'required',
+            'body' => 'required'
+        ];
+
+        if ($request->post('slug') !== $post->slug) {
+            $rules['slug'] = 'required|unique:posts|max:255';
+        }
+        $validatedData = $request->validate($rules);
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->post('body')), 200);
+
+        Post::where('id', $post->id)->update($validatedData);
+        return redirect('dashboard/post')->with('admMessage', 'Post has been edited.');
     }
 
     /**
@@ -104,7 +122,8 @@ class AdminPostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        Post::where('id', $post->id)->delete();
+        return redirect('dashboard/post')->with('admMessage', 'Post has been deleted.');
     }
 
     public function checkSlug(Request $request)

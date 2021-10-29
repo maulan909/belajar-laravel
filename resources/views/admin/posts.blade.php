@@ -28,8 +28,12 @@
                                         <td>{{ $post->category->name }}</td>
                                         <td>
                                             <a href="/dashboard/post/{{ $post->slug }}" class="btn btn-info btn-sm m-2"><i class="bi bi-eye"></i></a>
-                                            <a href="#" class="btn btn-warning btn-sm m-2"><i class="bi bi-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger btn-sm m-2"><i class="bi bi-trash"></i></a>
+                                            <a href="/dashboard/post/{{ $post->slug }}/edit" class="btn btn-warning btn-sm m-2"><i class="bi bi-pencil"></i></a>
+                                            <form action="/dashboard/post/{{ $post->slug }}" method="post" class="d-inline">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm m-2" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
