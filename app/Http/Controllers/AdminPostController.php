@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Storage;
 
 class AdminPostController extends Controller
 {
@@ -19,7 +20,7 @@ class AdminPostController extends Controller
     {
         return view('admin.posts', [
             'title' => 'Posts',
-            'posts' => Post::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get()
+            'posts' => Post::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(5)
         ]);
     }
 
@@ -48,8 +49,13 @@ class AdminPostController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required|unique:posts|max:255',
             'category_id' => 'required',
+            'image' => 'image|file|max:2048',
             'body' => 'required'
         ]);
+
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('post-image');
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
 
@@ -100,6 +106,7 @@ class AdminPostController extends Controller
         $rules = [
             'title' => 'required|max:255',
             'category_id' => 'required',
+            'image' => 'image|file|max:2048',
             'body' => 'required'
         ];
 
@@ -107,6 +114,14 @@ class AdminPostController extends Controller
             $rules['slug'] = 'required|unique:posts|max:255';
         }
         $validatedData = $request->validate($rules);
+
+        if ($request->file('image')) {
+            if ($post->image) {
+                Storage::delete($post->image);
+            }
+            $validatedData['image'] = $request->file('image')->store('post-image');
+        }
+
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->post('body')), 200);
 
@@ -122,6 +137,9 @@ class AdminPostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if ($post->image) {
+            Storage::delete($post->image);
+        }
         Post::where('id', $post->id)->delete();
         return redirect('dashboard/post')->with('admMessage', 'Post has been deleted.');
     }

@@ -5,7 +5,7 @@
         <div class="col-12 col-lg-10">
             <div class="card">
                 <div class="card-body">
-                    <form action="/dashboard/post/{{ $post->slug }}" method="post">
+                    <form action="/dashboard/post/{{ $post->slug }}" method="post" enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <div class="mb-3">
@@ -23,7 +23,7 @@
                             <label for="slug" class="form-label">Slug</label>
                             <input type="text" class="form-control @error('slug')
                                 is-invalid
-                            @enderror" id="slug" name="slug"  value="{{ old('slug', $post->slug) }}">
+                            @enderror" id="slug" name="slug" value="{{ old('slug', $post->slug) }}">
                             @error('slug')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -40,6 +40,18 @@
                                 @endforeach
                             </select>
                             @error('category_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Post Image</label>
+                            <div id="box-preview" style="max-height: 300px; overflow:hidden" class="{{ $post->image ? 'mb-3' : 'd-none' }}">
+                                <img src="{{ asset('storage/' . $post->image) }}" class="img-preview w-100" >
+                            </div>
+                            <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image">
+                            @error('image')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -72,6 +84,22 @@
             fetch('http://belajar-laravel.test/dashboard/post/checkslug?title=' + title.value)
                 .then(response => response.json())
                 .then(data => slug.value = data.slug);
+        });
+
+        const image = document.getElementById('image');
+        const box = document.getElementById('box-preview');
+        const imgPreview = document.querySelector('.img-preview');
+
+        image.addEventListener('change', function(){
+            box.classList.toggle('d-none',false);
+            box.classList.toggle('mb-3',true);
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
         });
     </script>
 @endsection
