@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\AdminCategoryController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -68,3 +69,4 @@ Route::post('/register', [RegisterController::class, 'store'])->middleware('gues
 Route::get('dashboard', [AdminController::class, 'index'])->middleware('auth');
 Route::get('dashboard/post/checkslug', [AdminPostController::class, 'checkSlug'])->middleware('auth');
 Route::resource('dashboard/post', AdminPostController::class)->middleware('auth');
+Route::resource('dashboard/category', AdminCategoryController::class)->except('show');

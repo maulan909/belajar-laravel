@@ -18,7 +18,7 @@ class AdminPostController extends Controller
      */
     public function index()
     {
-        return view('admin.posts', [
+        return view('admin.post.index', [
             'title' => 'Posts',
             'posts' => Post::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(5)
         ]);
@@ -31,7 +31,7 @@ class AdminPostController extends Controller
      */
     public function create()
     {
-        return view('admin.createPost', [
+        return view('admin.post.create', [
             'title' => 'Add Post',
             'categories' => Category::all()
         ]);
@@ -73,7 +73,7 @@ class AdminPostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.post', [
+        return view('admin.post.detail', [
             'title' => $post->title,
             'post' => $post
         ]);
@@ -87,7 +87,7 @@ class AdminPostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.editPost', [
+        return view('admin.post.edit', [
             'title' => 'Edit Post',
             'post' => $post,
             'categories' => Category::all()

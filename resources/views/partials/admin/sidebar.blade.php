@@ -26,13 +26,22 @@
                     </a>
                 </li>
                 
-                <li
-                    class="sidebar-item  {{ Request::is('dashboard/post') ? 'active' : '' }}">
+                <li class="sidebar-item  {{ Request::is('dashboard/post*') ? 'active' : '' }}">
                     <a href="/dashboard/post" class='sidebar-link'>
-                        <i class="bi bi-sticky"></i>
+                        <i class="bi bi-sticky-fill"></i>
                         <span>My Post</span>
                     </a>
                 </li> 
+                @can('isAdmin')
+                    <li class="sidebar-title">Administrator</li>
+                    
+                    <li class="sidebar-item {{ Request::is('dashboard/category*') ? 'active' : '' }}">
+                        <a href="/dashboard/category" class='sidebar-link'>
+                            <i class="bi bi-tags-fill"></i>
+                            <span>Category</span>
+                        </a>
+                    </li>
+                @endcan
                 
             </ul>
         </div>
